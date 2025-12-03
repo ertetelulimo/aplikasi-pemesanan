@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aplikasi Pemesanan Buku & Rumah Tangga</title>
+<style>
+body{font-family:Arial,sans-serif;margin:0;background:#f4f4f4;}
+.header{position:sticky;top:0;background:#0066d1;color:white;padding:10px 15px;display:flex;flex-direction:column;align-items:center;z-index:10;border-bottom:5px solid red;}
+.header-top{display:flex;justify-content:space-between;align-items:center;width:100%;}
+.header img{height:40px;margin-top:0;}
+.cart-container{display:flex;align-items:center;gap:10px;position:relative;}
+.badge{background:red;color:white;padding:3px 8px;border-radius:50%;font-size:14px;position:absolute;top:-5px;right:-5px;}
+.cart-icon{position:relative;font-size:26px;cursor:pointer;}
+#headerTotal{font-weight:bold;color:white;font-size:18px;min-width:80px;text-align:right;}
+#btnHeaderRingkasan{margin-top:8px;padding:6px 12px;background:#800000;border:none;color:white;border-radius:6px;cursor:pointer;}
+.menu{display:flex;overflow-x:auto;gap:10px;padding:10px;background:white;}
+.menu button{flex:1;padding:12px;border:none;background:#e7e7e7;border-radius:8px;font-weight:bold;cursor:pointer;}
+.menu button.active{background:#007bff;color:white;}
+.search-box{padding:10px;background:white;margin-top:10px;}
+.search-box input{width:100%;padding:10px;border-radius:8px;border:1px solid #bbb;}
+.content{padding:15px;display:flex;flex-direction:column;gap:15px;}
+.tombol-menu{padding:14px 20px;font-size:18px;border:none;border-radius:8px;width:90%;max-width:300px;cursor:pointer;margin:10px;color:white;}
+.btn-sekolah{background:#3182ce;}
+.btn-rumah{background:#38a169;}
+#btnKembali{margin:20px auto;padding:12px;border:none;background:#ff9c00;color:white;border-radius:10px;width:90%;font-size:18px;font-weight:bold;display:none;}
+.product-card{display:flex;gap:15px;background:#800000;color:white;padding:10px;border-radius:8px;width:100%;max-width:500px;margin-bottom:10px;align-items:flex-start;}
+.product-left{text-align:center;}
+.product-left img{width:110px;height:140px;object-fit:cover;border-radius:6px;}
+.product-left div{margin-top:5px;font-weight:bold;}
+.product-info{display:flex;flex-direction:column;justify-content:flex-start;flex:1;}
+.product-info b{font-size:16px;}
+.product-info p{margin:4px 0;}
+.product-info button{background:black;color:white;border:none;padding:8px;border-radius:6px;cursor:pointer;margin-top:5px;}
+.product-info input[type=number]{width:60px;padding:4px;border-radius:4px;border:1px solid #bbb;}
+#filterPenerbitContainer{margin:10px;text-align:center;}
+#filterPenerbit{padding:6px;border-radius:6px;border:1px solid #bbb;background-color:#006666;color:white;font-weight:bold;}
+#filterPenerbit option{background:white;color:black;}
+#ringkasanModal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:100;justify-content:center;align-items:center;padding:8px;}
+#ringkasanModal .card{background:#008b8b;color:white;border-radius:10px;width:95%;max-width:400px;padding:20px;position:relative;box-shadow:0 4px 12px rgba(0,0,0,0.25);max-height:85%;overflow-y:auto;}
+#ringkasanModal .closeBtn{position:absolute;top:5px;right:10px;width:40px;height:40px;background:red;color:white;border:none;border-radius:50%;font-size:22px;font-weight:bold;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+#ringkasanModal table{width:100%;border-collapse:collapse;margin-bottom:8px;font-size:12px;}
+#ringkasanModal table th, #ringkasanModal table td{border:1px solid rgba(255,255,255,0.6);padding:4px;text-align:center;}
+#ringkasanModal table th{background:rgba(0,123,123,0.8);}
+#ringkasanModal input, #ringkasanModal textarea{background:white;color:black;width:100%;padding:4px;border-radius:4px;border:1px solid #bbb;margin:3px 0;font-size:12px;}
+#ringkasanModal .action-buttons{display:flex;flex-direction:column;gap:10px;margin-top:10px;}
+#ringkasanModal .action-buttons button{width:100%;padding:14px;font-size:16px;border:none;border-radius:8px;cursor:pointer;font-weight:bold;color:white;transition:all 0.2s ease;box-shadow:0 4px 6px rgba(0,0,0,0.2);}
+.waBtn{background:#25D366;}
+#printBtn{background:#FF9C00;}
+#resetBtn{background:#b30000;}
+#ringkasanModal .action-buttons button:hover{transform:translateY(-2px);filter:brightness(0.9);}
+.header-title{text-align:left;margin-left:100px;margin-top:-45px;}
+.namaToko{font-size:20px;font-weight:700;}
+.subToko{font-size:14px;font-weight:300;margin-top:1px;}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-top">
+    <div><img src="https://lh3.googleusercontent.com/pw/AP1GczP6s26gPxZcdmqsx6Wr1vgZpS_0FuhLZAzuzr8M8_2pUJE0quxX2eJMYpmoTP2UCeo00kH0nK9WGI6KtflDmPM4H0Yv7e9BlWqBg0iMdqZ-trYiv6-1GC31N2l2lUhtHhiauFG6KhxmOJo8GCduIcpR=w361-h152-s-no?authuser=0" alt="Logo"></div>
+    <div class="cart-container">
+      <div class="cart-icon" onclick="lihatRingkasanModal()">🛒<span class="badge" id="badgeQty">0</span></div>
+      <div id="headerTotal">Rp 0</div>
+    </div>
+  </div>
+  <div class="header-title">
+    <div class="namaToko">Gajahmada Media Group</div>
+    <div class="subToko">Distributor Buku dan Alat Peraga</div>
+  </div>
+  <button id="btnHeaderRingkasan" onclick="lihatRingkasanModal()">🛒 Lihat Ringkasan</button>
+</div>
+
+<div id="menuUtama" style="display:block;text-align:center;padding:30px;">
+  <h2>Pilih Kategori Kebutuhan</h2>
+  <button class="tombol-menu btn-sekolah" onclick="bukaSekolah()">📘 Kebutuhan Sekolah</button><br>
+  <button class="tombol-menu btn-rumah" onclick="bukaRumahTangga()">🧹 Kebutuhan Rumah Tangga</button>
+  <div class="search-box" style="margin-top:20px;">
+    <input type="text" id="searchInputUtama" placeholder="🔍 Cari produk..." oninput="cariProdukUtama()">
+  </div>
+</div>
+
+<button id="btnKembali" onclick="kembaliMenuUtama()">⬅ Kembali ke Menu Utama</button>
+
+<div class="menu" id="menuSekolah" style="display:none;">
+  <button onclick="selectMenu(event,'HET')">HET</button>
+  <button onclick="selectMenu(event,'LKS')">LKS</button>
+  <button onclick="selectMenu(event,'TKA')">TKA</button>
+  <button onclick="selectMenu(event,'PM')">Buku Teks</button>
+  <button onclick="selectMenu(event,'CUSTOM')">Custom</button>
+</div>
+
+<div id="filterPenerbitContainer" style="display:none;">
+  <label>Pilih Penerbit: </label>
+  <select id="filterPenerbit" onchange="filterPenerbit()">
+    <option value="">Semua</option>
+  </select>
+</div>
+
+<div class="menu" id="menuRumah" style="display:none;">
+  <button onclick="selectRumah(event,'SEMBAKO')">Sembako</button>
+  <button onclick="selectRumah(event,'ALAT')">Peralatan Rumah Tangga</button>
+  <button onclick="selectRumah(event,'SNACK')">Snack</button>
+</div>
+
+<div class="search-box" id="searchBox" style="display:none;">
+  <input type="text" id="searchInput" placeholder="🔍 Cari produk..." oninput="cariProduk()">
+</div>
+
+<div class="content" id="contentArea" style="display:none;"></div>
+
+<div id="ringkasanModal">
+  <div class="card">
+    <button class="closeBtn" onclick="tutupRingkasanModal()">✖</button>
+    <div id="modalContent"></div>
+  </div>
+</div>
+
+<script>
+// DATA PRODUK
+const produkData = {
+  HET:[{id:"HET1",nama:"Buku Tema 1",harga:35000,img:"https://picsum.photos/200?random=1"}],
+  LKS:[{id:"LKS1",nama:"LKS Semester 1",harga:2000,img:"https://picsum.photos/200?random=2",penerbit:"Maestro"}],
+  TKA:[{id:"TKA1",nama:"Buku Mewarnai Anak",harga:15000,img:"https://picsum.photos/200?random=4",penerbit:"Intan Pariwara"}],
+  PM:[{id:"PM1",nama:"Pendidikan Moral",harga:28000,img:"https://picsum.photos/200?random=5",penerbit:"Maestro"}],
+  CUSTOM:[{id:"CUS1", nama:"Cetak Buku Prestasi", harga:4000, img:"https://picsum.photos/200?random=6"}]
+};
+const rumahData = {
+  SEMBAKO:[{id:'SM1',nama:'Beras 5kg',harga:65000,img:'https://picsum.photos/200?random=7'}],
+  ALAT:[{id:'AL1',nama:'Sapu Lantai',harga:15000,img:'https://picsum.photos/200?random=8'}],
+  SNACK:[{id:'SN1',nama:'Keripik Kentang',harga:12000,img:'https://picsum.photos/200?random=11'}]
+};
+const allProduk=[...produkData.HET,...produkData.LKS,...produkData.TKA,...produkData.PM,...produkData.CUSTOM,...rumahData.SEMBAKO,...rumahData.ALAT,...rumahData.SNACK];
+
+let pesanan=[]; 
+let produkTampil=[];
+
+// NAVIGASI
+function kembaliMenuUtama(){
+  document.getElementById('menuUtama').style.display='block';
+  document.getElementById('menuSekolah').style.display='none';
+  document.getElementById('menuRumah').style.display='none';
+  document.getElementById('btnKembali').style.display='none';
+  document.getElementById('contentArea').style.display='none';
+  document.getElementById('searchBox').style.display='none';
+  document.getElementById('filterPenerbitContainer').style.display='none';
+}
+function bukaSekolah(){
+  document.getElementById('menuUtama').style.display='none';
+  document.getElementById('menuSekolah').style.display='flex';
+  document.getElementById('menuRumah').style.display='none';
+  document.getElementById('btnKembali').style.display='block';
+  document.getElementById('contentArea').style.display='flex';
+  document.getElementById('searchBox').style.display='block';
+  selectMenu(null,'HET');
+}
+function bukaRumahTangga(){
+  document.getElementById('menuUtama').style.display='none';
+  document.getElementById('menuSekolah').style.display='none';
+  document.getElementById('menuRumah').style.display='flex';
+  document.getElementById('btnKembali').style.display='block';
+  document.getElementById('contentArea').style.display='flex';
+  document.getElementById('searchBox').style.display='block';
+  renderProduk([]);
+  document.getElementById('filterPenerbitContainer').style.display='none';
+}
+
+// SELEKSI MENU SEKOLAH
+function selectMenu(evt,kat){
+  if(evt) document.querySelectorAll('#menuSekolah button').forEach(b=>b.classList.remove('active'));
+  if(evt) evt.target.classList.add('active');
+  produkTampil = produkData[kat] || [];
+  setupFilterPenerbit(kat);
+  renderProduk(produkTampil);
+}
+
+// SELEKSI MENU RUMAH
+function selectRumah(evt,kat){
+  document.querySelectorAll('#menuRumah button').forEach(b=>b.classList.remove('active'));
+  evt.target.classList.add('active');
+  produkTampil = rumahData[kat];
+  renderProduk(produkTampil);
+}
+
+// FILTER PENERBIT
+function setupFilterPenerbit(kat){
+  const select=document.getElementById('filterPenerbit');
+  select.innerHTML='<option value="">Semua</option>';
+  if(!produkData[kat]){document.getElementById('filterPenerbitContainer').style.display='none';return;}
+  const penerbitSet=new Set(produkData[kat].map(p=>p.penerbit).filter(p=>p));
+  penerbitSet.forEach(p=>{const opt=document.createElement('option'); opt.value=p; opt.text=p; select.appendChild(opt);});
+  document.getElementById('filterPenerbitContainer').style.display=penerbitSet.size>0?'block':'none';
+}
+function filterPenerbit(){
+  const selected=document.getElementById('filterPenerbit').value;
+  let filtered=produkTampil;
+  if(selected) filtered=produkTampil.filter(p=>p.penerbit===selected);
+  renderProduk(filtered);
+}
+
+// RENDER PRODUK
+function renderProduk(list=produkTampil){
+  const area=document.getElementById('contentArea'); area.innerHTML='';
+  list.forEach(p=>{
+    area.innerHTML+=`
+    <div class="product-card" id="product_${p.id}">
+      <div class="product-left">
+        <img src="${p.img}">
+        <div>Kode: ${p.id}</div>
+      </div>
+      <div class="product-info">
+        <b>${p.nama}</b>
+        <p>Harga: Rp ${p.harga.toLocaleString()}</p>
+        <p>Jumlah: <input class="qty" type="number" min="0" value="${getQty(p.id)}" onchange="updateQty('${p.id}', this.value)"></p>
+        <p>Subtotal: Rp <span id="subtotal_${p.id}">${getSubtotal(p.id)}</span></p>
+        <button onclick="tambah('${p.id}','${p.nama}',${p.harga},document.querySelector('#product_${p.id} .qty').value)">+ Tambah</button>
+      </div>
+    </div>`;
+  });
+  updateBadge(); updateHeaderTotal();
+}
+function getQty(id){let item=pesanan.find(p=>p.id===id);return item?item.qty:0;}
+function getSubtotal(id){let item=pesanan.find(p=>p.id===id);return item?(item.harga*item.qty).toLocaleString():"0";}
+function tambah(id,nama,harga,qtyInput){let qty=parseInt(qtyInput)||1;if(qty<1) qty=1;let item=pesanan.find(p=>p.id===id);if(item)item.qty+=qty;else pesanan.push({id,nama,harga,qty});renderProduk(produkTampil);}
+function updateQty(id,val){let item=pesanan.find(p=>p.id===id);if(item){item.qty=parseInt(val)||0;if(item.qty===0) pesanan=pesanan.filter(p=>p.id!==id);}renderProduk(produkTampil);}
+function updateBadge(){document.getElementById('badgeQty').innerText=pesanan.reduce((a,b)=>a+b.qty,0);}
+function updateHeaderTotal(){const total=pesanan.reduce((sum,p)=>sum+p.harga*p.qty,0);document.getElementById('headerTotal').innerText='Rp '+total.toLocaleString();}
+
+// PENCARIAN
+function cariProduk(){const keyword=document.getElementById('searchInput').value.toLowerCase();if(!keyword){renderProduk(produkTampil);return;}const filtered=produkTampil.filter(p=>p.nama.toLowerCase().includes(keyword)||p.id.toLowerCase().includes(keyword));renderProduk(filtered);}
+function cariProdukUtama(){const keyword=document.getElementById('searchInputUtama').value.toLowerCase();if(!keyword){document.getElementById('contentArea').style.display='none';return;}const filtered=allProduk.filter(p=>p.nama.toLowerCase().includes(keyword)||p.id.toLowerCase().includes(keyword));if(filtered.length>0){produkTampil=filtered;renderProduk(filtered);document.getElementById('contentArea').style.display='flex';}else{document.getElementById('contentArea').innerHTML='<p style="text-align:center;">Produk tidak ditemukan</p>';document.getElementById('contentArea').style.display='flex';}}
+
+// RINGKASAN MODAL
+function lihatRingkasanModal() {
+  const modal = document.getElementById('ringkasanModal');
+  const content = document.getElementById('modalContent');
+  content.innerHTML = '';
+
+  if (pesanan.length === 0) {
+    content.innerHTML = '<p>Keranjang kosong.</p>';
+    modal.style.display = 'flex';
+    return;
+  }
+
+  let html = `<table>
+    <tr>
+      <th>No</th>
+      <th>Nama</th>
+      <th>Harga</th>
+      <th>Qty</th>
+      <th>Subtotal</th>
+      <th>Hapus</th>
+    </tr>`;
+
+  pesanan.forEach((p, i) => {
+    html += `<tr>
+      <td>${i + 1}</td>
+      <td>${p.nama}</td>
+      <td>Rp ${p.harga.toLocaleString()}</td>
+      <td>
+        <input type="number" min="1" value="${p.qty}" style="width:40px;text-align:center" onchange="updateQtyBawah(${i}, this.value)">
+      </td>
+      <td>Rp ${(p.harga * p.qty).toLocaleString()}</td>
+      <td>
+        <button onclick="hapusItemBawah(${i})" style="background:red;color:white;border:none;padding:4px 8px;border-radius:4px;">❌</button>
+      </td>
+    </tr>`;
+  });
+
+  html += `</table>
+    <div style="margin-top:10px;display:flex;gap:10px;align-items:center;">
+      <label style="flex:1;text-align:right;">Discount (%) :</label>
+      <input type="number" id="discountModal" value="0" style="width:80px;" onchange="updateTotalRingkasanModal()">
+    </div>
+    <div style="margin-top:5px;display:flex;gap:10px;align-items:center;">
+      <label style="flex:1;text-align:right;">Voucher (Rp) :</label>
+      <input type="number" id="voucherModal" value="0" style="width:80px;" onchange="updateTotalRingkasanModal()">
+    </div>
+    <h3 style="text-align:right;margin-top:10px;">Total: <span id="totalRingkasanModal">Rp 0</span></h3>
+
+    <label>Nama Pemesan</label>
+    <input id="namaPemesanModal">
+
+    <label>Nama Lembaga</label>
+    <input id="namaLembagaModal">
+
+    <label>Alamat</label>
+    <textarea id="alamatPemesanModal" style="height:60px;"></textarea>
+
+    <div class="action-buttons">
+      <button class="waBtn" onclick="kirimWARingkasanModal()">📱 Kirim ke WhatsApp</button>
+      <button id="printBtn" onclick="window.print()">🖨 Print</button>
+      <button id="resetBtn" onclick="resetPesananModal()">Reset</button>
+    </div>`;
+
+  content.innerHTML = html;
+  modal.style.display = 'flex';
+  updateTotalRingkasanModal();
+}
+function tutupRingkasanModal(){document.getElementById('ringkasanModal').style.display='none';}
+function updateQtyBawah(idx,val){pesanan[idx].qty=parseInt(val)||1;lihatRingkasanModal();updateBadge();updateHeaderTotal();}
+function hapusItemBawah(idx){pesanan.splice(idx,1);lihatRingkasanModal();updateBadge();updateHeaderTotal();}
+function updateTotalRingkasanModal(){const discount=parseFloat(document.getElementById('discountModal')?.value)||0;const voucher=parseFloat(document.getElementById('voucherModal')?.value)||0;let subtotal=pesanan.reduce((s,p)=>s+p.harga*p.qty,0);let total=subtotal-(subtotal*discount/100)-voucher;if(total<0) total=0;document.getElementById('totalRingkasanModal').innerText='Rp '+total.toLocaleString();document.getElementById('headerTotal').innerText='Rp '+total.toLocaleString();}
+function resetPesananModal(){if(confirm("Hapus semua pesanan?")){pesanan=[];renderProduk(produkTampil);updateBadge();updateHeaderTotal();tutupRingkasanModal();}}
+function kirimWARingkasanModal() {
+  if (pesanan.length === 0) {
+    alert("Belum ada pesanan!");
+    return;
+  }
+
+  const namaPemesan = document.getElementById('namaPemesanModal').value || "-";
+  const lembaga = document.getElementById('namaLembagaModal').value || "-";
+  const alamat = document.getElementById('alamatPemesanModal').value || "-";
+
+  const discountPerc = parseFloat(document.getElementById('discountModal').value) || 0;
+  const voucher = parseFloat(document.getElementById('voucherModal').value) || 0;
+
+  let subtotal = pesanan.reduce((a, b) => a + b.harga * b.qty, 0);
+  let discountRp = Math.round(subtotal * (discountPerc / 100));
+  let totalAkhir = subtotal - discountRp - voucher;
+  if (totalAkhir < 0) totalAkhir = 0;
+
+  let pesan = "📋 *Ringkasan Pesanan*%0A%0A";
+
+  pesanan.forEach((p) => {
+    pesan += `• *${p.nama}* - Qty: ${p.qty}, Harga: Rp ${p.harga.toLocaleString()}, Subtotal: Rp ${(p.harga * p.qty).toLocaleString()}%0A`;
+  });
+
+  pesan += `%0ASubtotal: Rp ${subtotal.toLocaleString()}%0ADiscount: ${discountRp.toLocaleString()}%0AVoucher: Rp ${voucher.toLocaleString()}%0ATotal Akhir: *Rp ${totalAkhir.toLocaleString()}*%0A%0A`;
+
+  pesan += `Nama Pemesan: ${namaPemesan}%0ALembaga: ${lembaga}%0AAlamat: ${alamat}`;
+
+  const nomorWA = "6285736666655"; // ganti dengan nomor tujuan
+  const url = `https://wa.me/${nomorWA}?text=${pesan}`;
+  window.open(url, "_blank");
+}
+
+</script>
+
+</body>
+</html>
