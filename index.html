@@ -55,7 +55,22 @@ body{font-family:Arial,sans-serif;margin:0;background:#f4f4f4;}
 #ringkasanModal table{width:100%;border-collapse:collapse;margin-bottom:8px;font-size:12px;}
 #ringkasanModal table th, #ringkasanModal table td{border:1px solid rgba(255,255,255,0.6);padding:4px;text-align:center;}
 #ringkasanModal table th{background:rgba(0,123,123,0.8);}
-#ringkasanModal input, #ringkasanModal textarea{background:white;color:black;width:100%;padding:4px;border-radius:4px;border:1px solid #bbb;margin:3px 0;font-size:12px;}
+#ringkasanModal input,
+#ringkasanModal textarea {
+    background: white;
+    color: black;
+    width: 100%;
+    padding: 12px;         /* sedikit lebih besar */
+    border-radius: 6px;
+    border: 1px solid #bbb;
+    margin: 5px 0;
+    font-size: 20px;
+}
+
+/* khusus textarea dibuat lebih tinggi */
+#ringkasanModal textarea {
+    height: 190px;        /* ubah tinggi sesuai keinginan */
+}
 #ringkasanModal .action-buttons{display:flex;flex-direction:column;gap:10px;margin-top:10px;}
 #ringkasanModal .action-buttons button{width:100%;padding:14px;font-size:16px;border:none;border-radius:8px;cursor:pointer;font-weight:bold;color:white;transition:all 0.2s ease;box-shadow:0 4px 6px rgba(0,0,0,0.2);}
 .waBtn{background:#25D366;}
@@ -348,7 +363,28 @@ function renderProduk(list=produkTampil){
 function getQty(id){let item=pesanan.find(p=>p.id===id);return item?item.qty:0;}
 function getSubtotal(id){let item=pesanan.find(p=>p.id===id);return item?(item.harga*item.qty).toLocaleString():"0";}
 function tambah(id,nama,harga,qtyInput){let qty=parseInt(qtyInput)||1;if(qty<1) qty=1;let item=pesanan.find(p=>p.id===id);if(item)item.qty+=qty;else pesanan.push({id,nama,harga,qty});renderProduk(produkTampil);}
-function updateQty(id,val){let item=pesanan.find(p=>p.id===id);if(item){item.qty=parseInt(val)||0;if(item.qty===0) pesanan=pesanan.filter(p=>p.id!==id);}renderProduk(produkTampil);}
+function updateQty(id, val) {
+  let qty = parseInt(val);
+
+  if (isNaN(qty) || qty < 1) qty = 1;
+
+  let item = pesanan.find(p => p.id === id);
+
+  if (item) {
+    item.qty = qty;
+  } else {
+    // jika sebelumnya belum ada di pesanan
+    let p = produkTampil.find(x => x.id === id);
+    pesanan.push({ id: p.id, nama: p.nama, harga: p.harga, qty });
+  }
+
+  // update subtotal saja, tanpa render ulang seluruh produk
+  document.getElementById("subtotal_" + id).innerText =
+    (item.harga * qty).toLocaleString();
+
+  updateBadge();
+  updateHeaderTotal();
+}
 function updateBadge(){document.getElementById('badgeQty').innerText=pesanan.reduce((a,b)=>a+b.qty,0);}
 function updateHeaderTotal(){const total=pesanan.reduce((sum,p)=>sum+p.harga*p.qty,0);document.getElementById('headerTotal').innerText='Rp '+total.toLocaleString();}
 
