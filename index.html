@@ -340,25 +340,44 @@ function filterPenerbit(){
 }
 
 // RENDER PRODUK
-function renderProduk(list=produkTampil){
-  const area=document.getElementById('contentArea'); area.innerHTML='';
-  list.forEach(p=>{
-    area.innerHTML+=`
-    <div class="product-card" id="product_${p.id}">
-      <div class="product-left">
-        <img src="${p.img}">
-        <div>Kode: ${p.id}</div>
-      </div>
-      <div class="product-info">
-        <b>${p.nama}</b>
-        <p>Harga: Rp ${p.harga.toLocaleString()}</p>
-        <p>Jumlah: <input class="qty" type="number" min="0" value="${getQty(p.id)}" onchange="updateQty('${p.id}', this.value)"></p>
-        <p>Subtotal: Rp <span id="subtotal_${p.id}">${getSubtotal(p.id)}</span></p>
-        <button onclick="tambah('${p.id}','${p.nama}',${p.harga},document.querySelector('#product_${p.id} .qty').value)">+ Tambah</button>
-      </div>
-    </div>`;
+function renderProduk(list = produkTampil) {
+  const area = document.getElementById('contentArea');
+  area.innerHTML = '';
+
+  list.forEach(p => {
+    area.innerHTML += `
+      <div class="product-card" id="product_${p.id}">
+        <div class="product-left">
+          <img src="${p.img}">
+          <div>Kode: ${p.id}</div>
+        </div>
+
+        <div class="product-info">
+          <b>${p.nama}</b>
+          <p>Harga: Rp ${p.harga.toLocaleString()}</p>
+
+          <p>Jumlah:
+            <input
+              id="qty_${p.id}"
+              class="qty"
+              type="number"
+              min="0"
+              value="${getQty(p.id)}"
+              onchange="updateQty('${p.id}', this.value)"
+            >
+          </p>
+
+          <p>Subtotal: Rp <span id="subtotal_${p.id}">${getSubtotal(p.id)}</span></p>
+
+          <button onclick="tambah('${p.id}','${p.nama}',${p.harga}, document.getElementById('qty_${p.id}').value)">
+            + Tambah
+          </button>
+        </div>
+      </div>`;
   });
-  updateBadge(); updateHeaderTotal();
+
+  updateBadge();
+  updateHeaderTotal();
 }
 function getQty(id){let item=pesanan.find(p=>p.id===id);return item?item.qty:0;}
 function getSubtotal(id){let item=pesanan.find(p=>p.id===id);return item?(item.harga*item.qty).toLocaleString():"0";}
