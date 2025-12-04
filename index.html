@@ -446,7 +446,7 @@ function kirimWARingkasanModal() {
   let totalAkhir = subtotal - discountRp - voucher;
   if (totalAkhir < 0) totalAkhir = 0;
 
-  let pesan = "📋 *Ringkasan Pesanan*%0A%0A";
+  let pesan = "📋 *Ringkasan Pesanan Gajahmada Media Group*%0A%0A";
 
   pesanan.forEach((p) => {
     pesan += `• *${p.nama}* - Qty: ${p.qty}, Harga: Rp ${p.harga.toLocaleString()}, Subtotal: Rp ${(p.harga * p.qty).toLocaleString()}%0A`;
