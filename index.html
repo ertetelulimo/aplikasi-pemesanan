@@ -36,7 +36,7 @@ body{font-family:Arial,sans-serif;margin:0;background:#f4f4f4;}
 #filterPenerbit{padding:6px;border-radius:6px;border:1px solid #bbb;background-color:#006666;color:white;font-weight:bold;}
 #filterPenerbit option{background:white;color:black;}
 
-/* Ringkasan Modal Baru */
+/* Ringkasan Modal */
 #ringkasanModal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);z-index:100;justify-content:center;align-items:center;padding:8px;}
 #ringkasanModal .card{background:#008b8b;color:white;border-radius:10px;width:95%;max-width:500px;padding:20px;position:relative;box-shadow:0 4px 12px rgba(0,0,0,0.25);max-height:85%;overflow-y:auto;}
 #ringkasanModal .closeBtn{position:absolute;top:5px;right:10px;width:40px;height:40px;background:red;color:white;border:none;border-radius:50%;font-size:22px;font-weight:bold;cursor:pointer;display:flex;align-items:center;justify-content:center;}
@@ -133,20 +133,173 @@ body{font-family:Arial,sans-serif;margin:0;background:#f4f4f4;}
 </div>
 
 <script>
-// Data Produk
+// DATA PRODUK
 const produkData = {
   HET:[{id:"HET1",nama:"Buku Tema 1",harga:35000,img:"https://picsum.photos/200?random=1"}],
-  LKS:[{id:"LKS1",nama:"Pendidikan Pancasila Kls 1",harga:11000,img:"https://picsum.photos/200?random=2",penerbit:"FOKUS"}],
-  TKA:[{id:"TKA1", nama:"Detik - Detik", harga:60000, img:"https://picsum.photos/200?random=3",penerbit:"Intan Pariwara"}],
-  PM:[{id:"PM1",nama:"Pendidikan Moral",harga:28000,img:"https://picsum.photos/200?random=4",penerbit:"Maestro"}],
-  CUSTOM:[{id:"CUS1", nama:"https://ertetelulimo.github.io/contoh-album-kenangan/", harga:10000, img:"https://picsum.photos/200?random=5"}]
+  
+ LKS:[{id:"Fokus 1-01",nama:"Pendidikan Pancasila Kls 1",harga:11000,img:"https://lh3.googleusercontent.com/pw/AP1GczNNLplcFIin2uBt_L5IddIju1pJhf4NVpHLSRBaSlT579rGh1SngbEpw2akW_stVetSPZoDtnYLtl2skAJUTZjl3Cp-aJPhy2ox1ZuZ9DJ9do07MjeuQjtQmwMohAppsuWeCZ-GgOG8Wto0v1e_TF8=w700-h977-s-no?authuser=0",penerbit:"FOKUS"},
+
+{id:"Fokus 1-02",nama:"Bahasa Indonesia Kls 1",harga:11000,img:"https://lh3.googleusercontent.com/pw/AP1GczPH1Cq-4AotpVkjkD-VdKJHGgQF0qEz6TNr8x4CuwxoGJSQUKmRooZU2wpfNESh0TyUmPrd7CUhyo_ggAGd97iCGEu3MgbTlQzgTh5FmP65ok6X4xdXTV9JTHNqO6-KxlU7Apdy9xWP5y56NjhnHm8=w640-h881-s-no?authuser=0",penerbit:"FOKUS"},
+
+{id:"Fokus 1-03", nama:"Matematika Kls 1", harga:11000, img:"https://lh3.googleusercontent.com/pw/AP1GczMPxVbR4lUlcYnvUkHZfr9VsdlhwypQeC-eAbEO158j7Lcm1ax8PVrpnqpKkIB9r0-E1q0cHxfhY8ZGsI_mIWyG58Gvdf4vFfuQTWO2A_BxIiq1eW4_BmBijO3v8zSO1sSz_5M9RomvzWORY98CO4w=w723-h983-s-no?authuser=0",penerbit:"FOKUS"},
+
+{id:"Fokus 1-04", nama:"Bahasa Inggris Kls 1", harga:11000, img:"https://lh3.googleusercontent.com/pw/AP1GczPkVHmcQEbaAsg4P8KONAqhBcKdIKURbwOJXUbuRmslwHSOWgm7x0ZoV83NeYRQRTdjiPOfCyq5jr9nZHH5urDNH4poSuSygSp100KDaUCgqVBdUmcyU2KEphSJIRk6PG7v43zYXn73oEKgmg1llDwh=w728-h1002-s-no?authuser=0",penerbit:"FOKUS"},
+
+{id:"Fokus 1-05", nama:"Bahasa Jawa Kls 1", harga:8000, img:"https://lh3.googleusercontent.com/pw/AP1GczMJnZFo8NqS7XOETxKXwQhp9FWGW6LWdDTYgJQYnyBBJUb6T6bdlQTQnMxR4IZ0gfxqI31msjtAkPEs8iPzrLGMM7sU-G45UhHzP8TnDIKrhd6MRpnnvqgBCKPLW3n4R9pNtU_HGJZaW_qqudHSYz55=w710-h996-s-no?authuser=0",penerbit:"FOKUS"},
+
+{id:"Fokus 1-06", nama:"Pendidikan Agama Islam Kls 1", harga:8000, img:"https://lh3.googleusercontent.com/pw/AP1GczOmiBa9pYa7yo5JITdEa67ZvTgxipdgYdnFFCEEqOzLMyQTyh0VcYSYfglq-uhc4wpCqcRvnaVqKOWB_bFkmL2TB_lvHknihgYn57sKvFYdoqR1a-lclD8S3EKg8R3zlTJTMxxu9PkMrag-4cUkijmG=w718-h994-s-no?authuser=0",penerbit:"FOKUS"},
+
+{id:"Fokus 1-07", nama:"PJOK Kls 1", harga:8000, img:"https://lh3.googleusercontent.com/pw/AP1GczNMcNQa6cTnRs-3_pTZ8vz3-0hDY1VGmW5WjiOokjJJ4C_Vc6UrnCm3YCsu0d2LBDS9A4Tx59hfDxDAeURmS5ekOp5oCPpzPrBkC8SIRScdMPPFE0QixCXqG93Xdp9V6qhUnwrqlEscvTDKtQdvdMP7=w713-h996-s-no?authuser=0",penerbit:"FOKUS"},
+
+{id:"Fokus 1-08", nama:"Seni Rupa Kls 1", harga:8000, img:"https://lh3.googleusercontent.com/pw/AP1GczNBZ4Tn4VX8Sg2RIDv38_TyxMSzLFd2Uv4Xg5Ovj_rB-4mUShpZ0cytbCKkOyf4m5Mn0G3He6Yi_r8GuAwm6JHs0MEXiO8Y4nWasnIljckTF2gJDDJHCL7uvwf2X00YcugGUCbrhxIGiSA0LOLxciTi=w675-h956-s-no?authuser=0",penerbit:"FOKUS"},
+
+{id:"Fokus 2-01", nama:"Pendidikan Pancasila Kls 2", harga:11000, img:"https://lh3.googleusercontent.com/pw/AP1GczM8uitxPXxTYrhjn_HIDFEhvxxG9N7rcoMQBpNtwo8LG9sW5d04D3l77yklj8dYM4QkXsjHQSQwMg5FuafQnHRgAx77cCj3gIr0QXb95ODAxW5sJ-TmAI6O8rgMFZXoNO7vFL0m-np2ylkqloWJSW7R=w704-h983-s-no?authuser=0",penerbit:"FOKUS"},
+
+{id:"Fokus 2-02", nama:"Bahasa Indonesia Kls 2", harga:11000, img:"https://lh3.googleusercontent.com/pw/AP1GczNWTgsNNOt4U9Qe7XmzEK1LxTr5Xa0o62vrV1vbA7nU_LCwVNG7WtwNyxXDSmoByyI_5pTcO8KYHQqXIqeet6cefKx5PEn8MdFll24Fgz_S1OGbOPHXGUQeRbK2qUvTj4rcO7085hgv3xvaiUMjw-wn=w682-h908-s-no?authuser=0",penerbit:"FOKUS"},
+
+{id:"Fokus 2-03", nama:"Matematika Kls 2", harga:11000, img:"https://lh3.googleusercontent.com/pw/AP1GczP5BKOQf0-6eeLWc73iG35sPnAeMWXUt6n2cgMsyoGX66iF0YjmQ1tE_YicLaA9YJcR6PDpkzEsJbNeZLKT-i_iKt4ngD3lk1gj3OA6z-xXfVGPimv6RHmNjoSWmXIFVDR99SF3ymFNF4qIlPpnY7xe=w718-h1002-s-no?authuser=0",penerbit:"FOKUS"},
+
+{id:"Fokus 2-04", nama:"Bahasa Inggris Kls 2", harga:11000, img:"https://lh3.googleusercontent.com/pw/AP1GczMLGT1KneBU4imCBoAKdE9aFQSfkEjZn2nCIoJgEsKTZmvb7rN9YqccmPOBF63BcwobdEWP5fycgaEgAKnWH6BmDHpm-5Yot5d8TESTkXT7uB5Q7r4AakDz5aVWwJfFJpw9WQl-98qeyKu3hgMSKtYY=w706-h982-s-no?authuser=0",penerbit:"FOKUS"},
+
+{id:"Fokus 2-05", nama:"Bahasa Jawa Kls 2", harga:8000, img:"https://lh3.googleusercontent.com/pw/AP1GczMQc06UUAXZMBJ0p-s7QoRMfFMZpXnHwDpWifnJ2rrjr7Z5syc2-HYrTJZZPfPWFp-tmClvbMsudFVXe1ohAkrWkV0xig7rqj3K44upNaH4c3MhDL2JFx9f2iilJHTe3uuIINOojHZoAnVSdiOWx6Kw=w714-h988-s-no?authuser=0",penerbit:"FOKUS"},
+
+{id:"Fokus 2-06", nama:"Pendidikan Agama Islam Kls 2", harga:8000, img:"https://lh3.googleusercontent.com/pw/AP1GczPId7UUWtbOnr1rCaaX9zdWYZrORg71RqxeoQ81O7ij2SuCYXAJCXK4kiTo9Q4G7tDVJlU84aCCaDdSzks6_ibXABRg5PeijwEokujga2RQQ7RG18eoq2xDK0gEFkAi3ks_pLST0MOTPLVsmlO3gkK9=w536-h697-s-no?authuser=0",penerbit:"FOKUS"},
+
+{id:"Fokus 2-07", nama:"PJOK Kls 2", harga:8000, img:"https://lh3.googleusercontent.com/pw/AP1GczP2jyc0iC_S0E-IfMeiGMJoLu373WR0J46YQfvjqR_SYpc7SGh5imnpKXVUJZJOUvoCyESapuQyPLpouDJisoTW0stIth_WSxb3IAoNC0grQzrDb1NyZtp8QiZXrvkFOiwtoIhnkmMBSn8GyuQ4F35g=w697-h1002-s-no?authuser=0",penerbit:"FOKUS"},
+
+{id:"Fokus 2-08", nama:"Seni Rupa Kls 2", harga:8000, img:"https://lh3.googleusercontent.com/pw/AP1GczOFARTjFZUsAumqKUBbziXo3ZA9-rv4y2BLW_iN-HoUGL3WVRYtjjJbDiaZvQCH2dGCmPEY1z7dHFDO5u0rtX2QJZfKCSFcIMSQGHI5sijynfLtvbrSAV-ClFdepaf-13hj2YjBWtTkPWvsY_8JJzPG=w157-h225-s-no?authuser=0",penerbit:"FOKUS"},
+
+{id:"Fokus 3-01", nama:"Pendidikan Pancasila Kls 3", harga:11000, img:"https://lh3.googleusercontent.com/pw/AP1GczMtwMavxJGwixyE9r_rGLjA25VzjBEUtlJL-7njSP40snAufX50yS-8xTfnsl6XatFf68Em-95r8l_cweaF7gc5DCBKMBp54oq8Ggz5YY5SiH0dS2Odj61z-HCTi_WbWshxcTxYzJegMxW-sEESZiBo=w706-h977-s-no?authuser=0",penerbit:"FOKUS"},
+
+{id:"Fokus 3-02", nama:"Bahasa Indonesia Kls 3", harga:11000, img:"https://lh3.googleusercontent.com/pw/AP1GczODq7AlXgIENjToTQWi4OgCRj5dDbWiozV_Ym29NVUb2S5CrAtJsxif2bL1YUhtksTbVPPcB1A10_2GLNJCEWs6AFHQtoW-rLUcvZ42WIIhsRpvHl1aWwbtzvcSzAAtiOwv4GeFqzilHGUL0GVZiWHJ=w504-h692-s-no?authuser=0",penerbit:"FOKUS"},
+
+{id:"Fokus 3-03", nama:"Matematika Kls 3", harga:11000, img:"https://lh3.googleusercontent.com/pw/AP1GczMSKcE1Uq2WjGSNBJW7q4fiBJjzZd-zFd9cnGf3RxlfmJm7EhecGyH5XEr9W9kIxO5kIZ_DR_T4AiKdzVt6smR_q6z1UXru8hSZZe_phHoTtlUNZ4WXn8ayg3hyyozVJKiwgBmUwoxX8m2eTuhjKTR1=w504-h666-s-no?authuser=0",penerbit:"FOKUS"},
+
+{id:"Fokus 3-04", nama:"IPAS Kls 3", harga:11000, img:"https://lh3.googleusercontent.com/pw/AP1GczOBttItZ07KgQgvo9xTGUlAWKl3DHmeC-XdxDL9h9R-DYTpkTpH8clj432AakIy13OG3YfoHXhX4Vs3IiZ-9d8nEjUCAfdwvPuhUoHb1dAZ3hW7Ytp1b6nw2l_lLqUyJmKLlrDCe44oDqyA4EI0GXgw=w705-h985-s-no?authuser=0",penerbit:"FOKUS"},
+
+{id:"Fokus 3-05", nama:"Bahasa Inggris Kls 3", harga:11000, img:"https://lh3.googleusercontent.com/pw/AP1GczM4lMEP1PYG7C2i25JkxZsCrApePVOIh1JLR8A2OaoghbH4sJ9Y4kxpVdc3vTikQl0b0F6XcWYr8hwe3boc4aIf4qAG9Hjb1w4wFbNzZsZE1cbEHHiKZ27BB4-SUwjXRRJsuNVlSju3oSyMeTmOA94n=w147-h190-s-no?authuser=0",penerbit:"FOKUS"},
+
+{id:"Fokus 3-06", nama:"Bahasa Jawa Kls 3", harga:8000, img:"https://lh3.googleusercontent.com/pw/AP1GczOTXL2gUlVvHXXT0KzA6IzIYTwY6Es5Mu1QYs8AqsmWbzJxHjVLYaeVb5EBfOKSL0lyW-fqiz5_YNkHTVIkQGfVfcCqThLNCx7pgPcAEbH8RvYIfrIiIAZfjxnNGpqEyDY2ljVqK6BEgE2B4NCZmbip=w513-h699-s-no?authuser=0",penerbit:"FOKUS"},
+
+{id:"Fokus 3-07", nama:"Pendidikan Agama Islam Kls 3", harga:8000, img:"https://lh3.googleusercontent.com/pw/AP1GczOVf9N0vM-2z9zNa4TGlSMwfjNLHH1PsKycoG7xDFwa1uD1P-f42EWwC95-r9wvUwLbMIysz7M3X6jd_JHwTjXScfbb_3xtZtbO_4YgNIv0YkOsNqUffvN_aQGPKePZbnSQlyA-iU5bmHVdCO_Bp7qq=w698-h935-s-no?authuser=0",penerbit:"FOKUS"},
+
+{id:"Fokus 3-08", nama:"PJOK Kls 3", harga:8000, img:"https://lh3.googleusercontent.com/pw/AP1GczNai1h16sMV7iPo0g_pZ2TfzAxsS7z0s3PCR-Vnp3t1BHDRfTb5BpxWq4kVbyXq3NEpzN1riioFbCRBVDwkgj2gOeY8bsuP7LgFs9Bz_LhzLPWL-U6aK_5hfVB4z8LIX87ufmJfG5MQA2kec_zp3hcr=w153-h225-s-no?authuser=0",penerbit:"FOKUS"},
+
+{id:"Fokus 3-09", nama:"Seni Rupa Kls 3", harga:8000, img:"https://lh3.googleusercontent.com/pw/AP1GczORzpIcKnP4GwLRTEvhPWWwe_SZMaUCw5ZBo-QTlTUdYyRvP8n6s-jaSOSmhP7pJSl31j3E4IReSJaHb23TT_iL2qgRn41bhKEHmp0qGYF7PO-Qy8RFD3OKqzMXN_LTwppH-yIixqxehejyRD0062qK=w509-h700-s-no?authuser=0",penerbit:"FOKUS"},
+
+{id:"Fokus 4-01", nama:"Pendidikan Pancasila Kls 4", harga:11000, img:"https://lh3.googleusercontent.com/pw/AP1GczP4xp7CYIKbvk_ZhMasO_tS91nmI_yf7Bjtr8iVqw4TFWikHPwBvB0-uZBupO44MTmJht-1suH9QvHrLin9iS_GAw_cJa3uY0FwVspoM0T-PFMwcbDpK-bKfofB-SaCjF_Z7nCJLBbP6CYpE0e06SjY=w1002-h1002-s-no?authuser=0",penerbit:"FOKUS"},
+
+{id:"Fokus 4-02", nama:"Bahasa Indonesia Kls 4", harga:11000, img:"https://lh3.googleusercontent.com/pw/AP1GczOklrWHTAMUSZcekxbn7oU6XfwyMnWTeSVUdoUqOp7bVX-Itwkx_GklVnxvve8coMitvWDTapFOzPcGHhGRiXBS07U0QnxvVD2eZmamxLG0cZlr5oYEV9220zh_K6hs0BDisQvxY37py7WPFReSTpCI=w1002-h1002-s-no?authuser=0",penerbit:"FOKUS"},
+
+{id:"Fokus 4-03", nama:"Matematika Kls 4", harga:11000, img:"https://lh3.googleusercontent.com/pw/AP1GczMPf6qgpD85YR79p2XEM2VFiHeiylrIMno0Zk_BKQORS_04xGiCcGR_ptd7XMdLuMORrhk1Pr6VKINbbEngLXu9WPOvYIjDB7ih75yH5hZXeQBXiqTZ9RrW7Rgwo7rP869ekS8gxw8INljKqBnRnf-o=w225-h225-s-no?authuser=0",penerbit:"FOKUS"},
+
+{id:"Fokus 4-04", nama:"IPAS Kls 4", harga:11000, img:"https://lh3.googleusercontent.com/pw/AP1GczP_4_6cUk3zbx9VRVflYZ45m5C3lFB2CDZ6dhhz0kgosJe5CVsa51T4gsksTtYNibyhCs3WUgWJpvpcU9BcfIP62JwCek5CQaVX6w9EDNwi1DfvnaXKgYJx19ZU4y8_FR24hj2cNcdghkQxWafVOP0A=w1002-h1002-s-no?authuser=0",penerbit:"FOKUS"},
+
+{id:"Fokus 4-05", nama:"Bahasa Inggris Kls 4", harga:11000, img:"https://lh3.googleusercontent.com/pw/AP1GczO7Oz5ykeNbQELo6tEgSBZptbj0zHp6jBrVsntwcK8HtxxIEKFYVBCbwYI9yYZwFYWeWx3YMbOOZNTJKLYMkyaP-ZAw_-nCr5XyWVa84r7PcRNlRtdWFt_rIoeTWLpEKNDVIMcatZsiNg_Qt4Fg3KXc=w1002-h1002-s-no?authuser=0",penerbit:"FOKUS"},
+
+{id:"Fokus 4-06", nama:"Bahasa Jawa Kls 4", harga:8000, img:"https://lh3.googleusercontent.com/pw/AP1GczOppMRBYsm4Rjdrq8kdwmgWAC4LS7XK5JvV0jeRBbFMsCH0pJcRl7XAtA9O_SIUeIOQXoatDz7sNjDjt1KUm9tYPXoynV_AFlJe-xM9ix2-UdGyrCaQ7qauYaJfaueXsIUYQothevk5Mhfa0RF4pU0I=w800-h800-s-no?authuser=0",penerbit:"FOKUS"},
+
+{id:"Fokus 4-07", nama:"Pendidikan Agama Islam Kls 4", harga:8000, img:"https://lh3.googleusercontent.com/pw/AP1GczM0PL5S4peQh2NoZVpmo4yhBBW8stSEUZthBc-10m5S8nSLUZw-wYqtGQuzyFrxkGq5M4u034D6w7bRZb_d7HtzqRIfgoYf-RfZ9aQkW44outLCg9E2alQxvDCkM2f3MjYRw6kn1HvMRRM76MS9wbrv=w715-h1002-s-no?authuser=0",penerbit:"FOKUS"},
+
+{id:"Fokus 4-08", nama:"PJOK Kls 4", harga:8000, img:"https://lh3.googleusercontent.com/pw/AP1GczOEUezQxHOdWyAaPo7Mud3kkZ0EMEU9vauV9JBxPdDiqrqackyO-wuQc0ExO6tBpgp0_hcFVAm41NAdX0v-iDZ7cfHkNrC8U3d4vFQlYoIef5wIPhJud4Chw_QQtiUFsyHX6wvlV4Nbid_yvgJ_fYKc=w1002-h1002-s-no?authuser=0",penerbit:"FOKUS"},
+
+{id:"Fokus 4-09", nama:"Seni Rupa Kls 4", harga:8000, img:"https://lh3.googleusercontent.com/pw/AP1GczMA2yuTMbtffvMQ9-xp4p83_N349LUZcpAmBDlcnNjVLePhdUN_FtajtnYBV7uxX4nb1fRfYZBoHiPHov_0sYyTmRK-f8bb9hB83fRCJVooE2IG6NnMwzSHrQe3RYMZOvM2M8yK5KV5jvw84mhDNwUQ=w1002-h1002-s-no?authuser=0",penerbit:"FOKUS"},
+
+{id:"Fokus 5-01", nama:"Pendidikan Pancasila Kls 5", harga:11000, img:"https://lh3.googleusercontent.com/pw/AP1GczMlhuYDTEIgQD6O2F5x_4i2inruHBG9aiq3kGNKYQArcr7oKlAAJIOOwOBu_v-9IQG19xFpkd6YNPiCmp_JvsTivy_yonxdijxKrWzgxcmA43pB6_83nFozlPuL1Pcsk_q_NgrOoTYpwkGnurBh_qHP=w1002-h1002-s-no?authuser=0",penerbit:"FOKUS"},
+
+{id:"Fokus 5-02", nama:"Bahasa Indonesia Kls 5", harga:11000, img:"https://lh3.googleusercontent.com/pw/AP1GczM6Iw1RJLjy-0nJMJQYDh0qdAqh0RNlyjWFiMtppzK9WsIuvbt1V0kOhFPsdFc8Nc0rDLrypSFIHsP4l-Zpz3eovG4_PS-myEZ36YFD5GmJEPC_aO6pXJT5icRnEHR6ZaAmZK5D4Xqwz4Uj_Ow_imQ3=w1002-h1002-s-no?authuser=0",penerbit:"FOKUS"},
+
+{id:"Fokus 5-03", nama:"Matematika Kls 5", harga:11000, img:"https://lh3.googleusercontent.com/pw/AP1GczM3BlGEDsaAvLq9q-1MRH2bIgPk-L_RPsj-2_NaS_AQXmnuazZcP1Clxjgwh948LReG61fISDHdaoz3kDIpzs1LUUYHLyvF8-R5ioaE9-Y6KJZh4kIlbv2XIqJ3ofSkKfm9mYvVhL5XpxBniuzOisE_=w1002-h1002-s-no?authuser=0",penerbit:"FOKUS"},
+
+{id:"Fokus 5-04", nama:"IPAS Kls 5", harga:11000, img:"https://lh3.googleusercontent.com/pw/AP1GczP6qWN2-QkSdhdPcQMrr5c0x8tLMMoFGBIXMFFJIL4EyuqRvsjdQA2WjrGuFR95RiZAc9_8BY4SNaHOLIt5fxt9S81493T_MWgWbEX3LHc1hKkk6iqunn6t5ZxehoYeSPW8nl9KYX2EA2mn6cU5Fdur=w225-h225-s-no?authuser=0",penerbit:"FOKUS"},
+
+{id:"Fokus 5-05", nama:"Bahasa Inggris Kls 5", harga:11000, img:"https://lh3.googleusercontent.com/pw/AP1GczMw0n0B612sKaPEY4yMArVt7TUw6-VJc7dC-Ys4mmJNukI_ab39xRdXtyf3-nbigpCLlZuT_Inq3LSWqkxGYOAxYCHjJfSyxdl6EPugf3yJjSS2dQ_NftgwQGi9fIumHOUeo9jPCijk_DMCFy5hS-7p=w225-h225-s-no?authuser=0",penerbit:"FOKUS"},
+
+{id:"Fokus 5-06", nama:"Bahasa Jawa Kls 5", harga:8000, img:"https://lh3.googleusercontent.com/pw/AP1GczP25FMWgfdUsp-m6KlTBNIe-a07v09JLsT4uTeRYWYRQs-vRlA_fPCuxtga2jYVeDyuwlqm8kW10huEJwV8m0K7bIJFY-7mzHbWOHd7Ew2h01QAVMDjeJ3wJLFFnfc2GfVLUg_Nk7hXRfWUPOXI55Ul=w800-h800-s-no?authuser=0",penerbit:"FOKUS"},
+
+{id:"Fokus 5-07", nama:"Pendidikan Agama Islam Kls 5", harga:8000, img:"https://lh3.googleusercontent.com/pw/AP1GczMq_chJHgRlsWPz5dFBMvS089UN4EpjR9Cq-B7BCJgaSTc2_q_-kSSjOOPuWlFj-qKF8FWZwPo73flcO7oWvd16-a4r3QtX8CZhUFVn4_ZfklB0qZQX-6QEcpIVKoLGOdiWymY1I-PqT9pGRtN6XwEl=w1002-h1002-s-no?authuser=0",penerbit:"FOKUS"},
+
+{id:"Fokus 5-08", nama:"PJOK Kls 5", harga:8000, img:"https://lh3.googleusercontent.com/pw/AP1GczNc_0CLRQKbVLzjFRLDmi_-jeX7x0k4roNgddOwURGovdAVnjHohqqL-VY_gegrCvCBCzhCef3KNUN2gT9aI1SviXcJWAxdhBcWwPV686x-AK6ZJYrIbHxvBQXRGEDa2AoM333bikFMVI118hWWydJW=w225-h225-s-no?authuser=0",penerbit:"FOKUS"},
+
+{id:"Fokus 5-09", nama:"Seni Rupa Kls 5", harga:8000, img:"https://lh3.googleusercontent.com/pw/AP1GczPA1g_PJI1Uh_7K34zCmttGMhP4NpBXTqyjGFZbLc1IQRgUOGSpGU5ANsBd0ElrEpDcjzLGzg2O8qq2cNPFtJUtljG9Rv-AU6wMc4-9znWHIsP3V0mn-iOh-joKPdEqTKYTU22j74LzhxSOtBu3GQzx=w1002-h1002-s-no?authuser=0",penerbit:"FOKUS"},
+
+{id:"Fokus 6-01", nama:"Pendidikan Pancasila Kls 6", harga:17000, img:"https://lh3.googleusercontent.com/pw/AP1GczPSMvoN9Kf-OgarvtK2z8IsXjYSw0r8gtjKWVWTcorad_1zn1yz-FUVl_2-0KRPvnuRPMXN2AqZxb00X9454mfhXLbHvoSy5BBQeDZlajFzlp22Kr90SH4hT4T_xPdN4u4MiKu_gAG0mrjdd8wWCguv=w716-h957-s-no?authuser=0",penerbit:"FOKUS"},
+
+{id:"Fokus 6-02", nama:"Bahasa Indonesia Kls 6", harga:17000, img:"https://lh3.googleusercontent.com/pw/AP1GczNM9pkQYavb1JrcNk3mN3fkVmSdzxkySImv5Vpm6naeqFyuwzMJIzDzICEWUxbbIQR5ggkt_qpNFTiuQunIoqZ6ywpR6eWdRbdOmjetSdRRa8H141Quk82zZusBwyt2rwCyVJpa69q0I4T5Og4YMh3J=w748-h973-s-no?authuser=0",penerbit:"FOKUS"},
+
+{id:"Fokus 6-03", nama:"Matematika Kls 6", harga:17000, img:"https://lh3.googleusercontent.com/pw/AP1GczOk6kNW4MSvir-nj9frfqtrHn8dZQJnmVWm5pYBzzh0UWVk05lFZsRr4YRtmGqictefa7xvYCgtibkUhM0R1TnvHrSq6L4ig1buNscGxUTnIy9qaGg92rVB2My2P8E5MtZ8Vq8uiH29gxtH___UrwYv=w712-h1002-s-no?authuser=0",penerbit:"FOKUS"},
+
+{id:"Fokus 6-04", nama:"IPAS Kls 5", harga:17000, img:"https://lh3.googleusercontent.com/pw/AP1GczPnql8piQmGC3tjqUx37TqMojDIDdwnZlvNx8rA_HN58HnttlDBzOe_XRaI0uPkkM7DNo_UMO4Kic-cTTGGL4_5WoywL9j9KNS7DXz8MvJULOO3YmjuE6gfZ1YljidBkSEfGGaed89D2Ev_w8Zp-uNG=w738-h993-s-no?authuser=0",penerbit:"FOKUS"},
+
+{id:"Fokus 6-05", nama:"Bahasa Inggris Kls 6", harga:17000, img:"https://lh3.googleusercontent.com/pw/AP1GczNRUTLKAPOoN6niM6JrB0iG6vjZp9iWW3V2AY6RquqiGcQaMPgt4Zs6Hl1Av3AWg579-LMqaY6HdCK3domNC7VTua9RyqA3VCbLYGaxndtnHm8F4J7xOSOZK7jRORXXEyzneCqwrU0wlPaeW8qtkDZy=w190-h265-s-no?authuser=0",penerbit:"FOKUS"},
+
+{id:"Fokus 6-06", nama:"Bahasa Jawa Kls 6", harga:13000, img:"https://lh3.googleusercontent.com/pw/AP1GczOXnAii0m_JwcwB_ebBSEmiJVLkGwTFeNKn6TBrL7h-p6IGF6GBieT6wRCng67fmDNrTOm1t0EthaFEwe-iPvJ0aUtipODOgYhpg7v9vKN3t1eypXV6PJGKXE-2t5H8LnAM7efVDU110qvi9voE00ou=w156-h201-s-no?authuser=0",penerbit:"FOKUS"},
+
+{id:"Fokus 6-07", nama:"Pendidikan Agama Islam Kls 6", harga:13000, img:"https://lh3.googleusercontent.com/pw/AP1GczOynwPX9VwB4Eymn1XmBhABUwBem8lsD2sWyNkZ1SPnFniT8T7HPfe-L_OlzEWZZGI9vBgYwsGSe_Li1DxyybagrM1p4BG_AAutfEvXUctlv2NrTVTci0XGpDTMyXKrUZ6z3VhwZ2pp-QA6600fklx6=w707-h980-s-no?authuser=0",penerbit:"FOKUS"},
+
+{id:"Fokus 6-08", nama:"PJOK Kls 6", harga:13000, img:"https://lh3.googleusercontent.com/pw/AP1GczMDMTgNxw5B0kR3hXKyE6M7bK2bzRVv3BsCzSpOfY7yQ2iPTemJ1a9Adh_0VVWyysZEjlyBaHZBuo_C0Usmq4D2y47epwAVb-EYxXvtSmyV6O7GidzTiHbT2Ekru48Nja3aQ8-NNAha_LCOmWKGnDmH=w158-h218-s-no?authuser=0",penerbit:"FOKUS"},
+
+{id:"Fokus 6-09", nama:"Seni Rupa Kls 6", harga:13000, img:"https://lh3.googleusercontent.com/pw/AP1GczP8GAEmtfTlXx6Mx7IxDdGeEsId5qmKEWI20kOWWFTBog4xK6lrbEoChjGtg-gGR1IBC0p8dWQbfppk4VTyuvILUi8swKNTOLuBlAaFnuz0FAUblsWdxIvCZ5RtLzaoANJPfCAljnZBZ-8xBQ4FIsnY=w685-h1002-s-no?authuser=0",penerbit:"FOKUS"},
+],
+
+  
+TKA:[{id:"TKA-INT-6-01", nama:"Detik - Detik", harga:60000, img:"https://lh3.googleusercontent.com/pw/AP1GczPplBbNIvMiWXEw8Toe_If2AuXUGU2bxygLxWfmyA--ETqcwikM1v_Rr_LBWU0dgMwNOm-rtGvFv7t5lmMi9us9r6GtU88eO92s6M2hT4poOfDC80U7JXNQOh6kiOS_MDHuQs7y2pxeQcWU_KVAoQ0i=w400-h565-s-no?authuser=0",penerbit:"Intan Pariwara"},
+
+{id:"TKA-PM-6-01", nama:"Aku Siap", harga:85000, img:"https://lh3.googleusercontent.com/pw/AP1GczNyO3k6IJsXZuJuFIHvmY3OzJQMV8KufX1C34fQr-iFJc4RxM5boajaSKgcIvtQ3w9Z-zJoW_hYArPFh-pNudYdkANGvzTL1m7AZ1bEGi9epxjX6vVN9X6UzJYWfb_EZ1-mY16L5VTlmXvI4smq0Wnn=w763-h1002-s-no?authuser=0",penerbit:"Pustaka Mulia"},
+
+{id:"TKA-CBT-6-01", nama:"CBT", harga:10000, img:"https://picsum.photos/200?random=12",penerbit:"GMG", url:"https://ertetelulimo.github.io/contoh-album-kenangan/"}
+  ],
+
+  PM:[
+{id:"MM-MAT-1-0206240950",nama:"Cerdas Matematika 1",harga:105000,img:"https://picsum.photos/200?random=4",penerbit:"MASMEDIA"},
+{id:"MM-MAT-2-0206240960",nama:"Cerdas Matematika 2",harga:105000,img:"https://picsum.photos/200?random=4",penerbit:"MASMEDIA"},
+{id:"MM-MAT-3-0206240970",nama:"Cerdas Matematika 3",harga:105000,img:"https://picsum.photos/200?random=4",penerbit:"MASMEDIA"},
+{id:"MM-MAT-4-0206240980",nama:"Cerdas Matematika 4",harga:105000,img:"https://picsum.photos/200?random=4",penerbit:"MASMEDIA"},
+{id:"MM-MAT-5-0206240990",nama:"Cerdas Matematika 5",harga:105000,img:"https://picsum.photos/200?random=4",penerbit:"MASMEDIA"},
+{id:"MM-MAT-6-0206241000",nama:"Cerdas Matematika 6",harga:105000,img:"https://picsum.photos/200?random=4",penerbit:"MASMEDIA"},
+
+{id:"MM-BI-1-0205240430",nama:"Bahasa Indonesia 1",harga:115000,img:"https://picsum.photos/200?random=4",penerbit:"MASMEDIA"},
+{id:"MM-BI-2-0205240440",nama:"Bahasa Indonesia 2",harga:115000,img:"https://picsum.photos/200?random=4",penerbit:"MASMEDIA"},
+{id:"MM-BI-3-0205231640",nama:"Bahasa Indonesia 3",harga:115000,img:"https://picsum.photos/200?random=4",penerbit:"MASMEDIA"},
+{id:"MM-BI-4-0205240450",nama:"Bahasa Indonesia 4",harga:115000,img:"https://picsum.photos/200?random=4",penerbit:"MASMEDIA"},
+{id:"MM-BI-5-0205240460",nama:"Bahasa Indonesia 5",harga:115000,img:"https://picsum.photos/200?random=4",penerbit:"MASMEDIA"},
+{id:"MM-BI-6-0205231650",nama:"Bahasa Indonesia 6",harga:115000,img:"https://picsum.photos/200?random=4",penerbit:"MASMEDIA"},
+
+{id:"MM-PKN-1-0204240310",nama:"Pendidikan Pancasila 1",harga:113000,img:"https://picsum.photos/200?random=4",penerbit:"MASMEDIA"},
+{id:"MM-PKN-1-0204240320",nama:"Pendidikan Pancasila 2",harga:113000,img:"https://picsum.photos/200?random=4",penerbit:"MASMEDIA"},
+{id:"MM-PKN-1-0204231520",nama:"Pendidikan Pancasila 3",harga:106000,img:"https://picsum.photos/200?random=4",penerbit:"MASMEDIA"},
+{id:"MM-PKN-1-0204240330",nama:"Pendidikan Pancasila 4",harga:116000,img:"https://picsum.photos/200?random=4",penerbit:"MASMEDIA"},
+{id:"MM-PKN-1-0204240340",nama:"Pendidikan Pancasila 5",harga:115000,img:"https://picsum.photos/200?random=4",penerbit:"MASMEDIA"},
+{id:"MM-PKN-1-0204231530",nama:"Pendidikan Pancasila 6",harga:106000,img:"https://picsum.photos/200?random=4",penerbit:"MASMEDIA"},
+
+{id:"MM-PAI-1-0203240230",nama:"Pendidikan Agama Islam 1",harga:83000,img:"https://picsum.photos/200?random=4",penerbit:"MASMEDIA"},
+{id:"MM-PAI-1-0203240240",nama:"Pendidikan Agama Islam 2",harga: 88000,img:"https://picsum.photos/200?random=4",penerbit:"MASMEDIA"},
+{id:"MM-PAI-1-0203231500",nama:"Pendidikan Agama Islam 3",harga:92000,img:"https://picsum.photos/200?random=4",penerbit:"MASMEDIA"},
+{id:"MM-PAI-1-0203240250",nama:"Pendidikan Agama Islam 4",harga: 88000,img:"https://picsum.photos/200?random=4",penerbit:"MASMEDIA"},
+{id:"MM-PAI-1-0203240260",nama:"Pendidikan Agama Islam 5",harga: 88000,img:"https://picsum.photos/200?random=4",penerbit:"MASMEDIA"},
+{id:"MM-PAI-1-0203231510",nama:"Pendidikan Agama Islam 6",harga:85000,img:"https://picsum.photos/200?random=4",penerbit:"MASMEDIA"},
+
+
+
+],
+  
+
+CUSTOM:[
+  {id:"CUS1", nama:"Cetak Buku Prestasi", harga:4000, img:"https://picsum.photos/200?random=5"},
+  {id:"CUS2", nama:"Album Kenangan", harga:10000, img:"https://picsum.photos/200?random=13", url:"https://ertetelulimo.github.io/contoh-album-kenangan/"}
+]
+
 };
-const rumahData = {SEMBAKO:[{id:'SM1',nama:'Beras 5kg',harga:65000,img:'https://picsum.photos/200?random=7'}],ALAT:[{id:'AL1',nama:'Sapu Lantai',harga:15000,img:'https://picsum.photos/200?random=8'}],SNACK:[{id:'SN1',nama:'Keripik Kentang',harga:12000,img:'https://picsum.photos/200?random=9'}]};
+const rumahData = {
+  SEMBAKO:[{id:'SM1',nama:'Beras 5kg',harga:65000,img:'https://picsum.photos/200?random=7'}],
+  ALAT:[{id:'AL1',nama:'Sapu Lantai',harga:15000,img:'https://picsum.photos/200?random=8'}],
+  SNACK:[{id:'SN1',nama:'Keripik Kentang',harga:12000,img:'https://picsum.photos/200?random=9'}]
+};
 const allProduk=[...produkData.HET,...produkData.LKS,...produkData.TKA,...produkData.PM,...produkData.CUSTOM,...rumahData.SEMBAKO,...rumahData.ALAT,...rumahData.SNACK];
 let pesanan=[]; 
 let produkTampil=[];
 
-// Navigasi
+// NAVIGASI
 function kembaliMenuUtama(){
   document.getElementById('menuUtama').style.display='block';
   document.getElementById('menuSekolah').style.display='none';
@@ -176,7 +329,7 @@ function bukaRumahTangga(){
   document.getElementById('filterPenerbitContainer').style.display='none';
 }
 
-// Menu Sekolah
+// MENU SEKOLAH
 function selectMenu(evt,kat){
   if(evt) document.querySelectorAll('#menuSekolah button').forEach(b=>b.classList.remove('active'));
   if(evt) evt.target.classList.add('active');
@@ -185,7 +338,25 @@ function selectMenu(evt,kat){
   renderProduk(produkTampil);
 }
 
-// Menu Rumah
+// FILTER PENERBIT
+function setupFilterPenerbit(kat){
+  const select=document.getElementById('filterPenerbit');
+  select.innerHTML='<option value="">Semua</option>';
+  if(kat && produkData[kat]){
+    const penerbitList=[...new Set(produkData[kat].map(p=>p.penerbit).filter(Boolean))];
+    penerbitList.forEach(p=>{
+      const opt=document.createElement('option'); opt.value=p; opt.innerText=p; select.appendChild(opt);
+    });
+    document.getElementById('filterPenerbitContainer').style.display=penerbitList.length>0?'block':'none';
+  } else document.getElementById('filterPenerbitContainer').style.display='none';
+}
+function filterPenerbit(){
+  const value=document.getElementById('filterPenerbit').value;
+  if(value==="") renderProduk(produkTampil);
+  else renderProduk(produkTampil.filter(p=>p.penerbit===value));
+}
+
+// MENU RUMAH
 function selectRumah(evt,kat){
   document.querySelectorAll('#menuRumah button').forEach(b=>b.classList.remove('active'));
   evt.target.classList.add('active');
@@ -193,7 +364,7 @@ function selectRumah(evt,kat){
   renderProduk(produkTampil);
 }
 
-// Render Produk
+// RENDER PRODUK
 function renderProduk(arr){
   const container = document.getElementById('contentArea');
   container.innerHTML = '';
@@ -201,7 +372,7 @@ function renderProduk(arr){
     const pesananItem = pesanan.find(item => item.id === p.id);
     const qty = pesananItem ? pesananItem.qty : 0;
     const subtotal = p.harga * qty;
-    let namaProduk = p.nama.startsWith('http')? `<a href="${p.nama}" target="_blank" style="color:white;text-decoration:underline;">Lihat Album Kenangan</a>` : p.nama;
+    let namaProduk = p.url ? `<a href="${p.url}" target="_blank" style="color:white;text-decoration:underline;">${p.nama}</a>` : p.nama;
     const card = document.createElement('div');
     card.className = 'product-card';
     card.innerHTML = `
@@ -223,7 +394,7 @@ function renderProduk(arr){
   });
 }
 
-// Tambah Pesanan
+// TAMBAH PESANAN
 function tambahPesanan(id){
   const produk = allProduk.find(p=>p.id===id);
   if(produk){
@@ -238,7 +409,7 @@ function tambahPesanan(id){
   }
 }
 
-// Update Header
+// UPDATE HEADER
 function updateHeader(){
   const totalQty=pesanan.reduce((a,b)=>a+b.qty,0);
   const totalHarga=pesanan.reduce((a,b)=>a+b.harga*b.qty,0);
@@ -246,7 +417,7 @@ function updateHeader(){
   document.getElementById('headerTotal').innerText='Rp '+totalHarga.toLocaleString();
 }
 
-// Ringkasan Modal
+// RINGKASAN MODAL
 function lihatRingkasanModal(){
   const modal=document.getElementById('ringkasanModal');
   const content=document.getElementById('modalContent');
@@ -256,7 +427,7 @@ function lihatRingkasanModal(){
     content.innerHTML='<table><tr><th>No</th><th>Nama</th><th>Harga</th><th>Qty</th><th>Subtotal</th><th>Hapus</th></tr>'+
       pesanan.map((p,i)=>`<tr>
         <td>${i+1}</td>
-        <td>${p.nama.startsWith('http')? `<a href="${p.nama}" target="_blank" style="color:white;text-decoration:underline;">Lihat Album</a>` : p.nama}</td>
+        <td>${p.url? `<a href="${p.url}" target="_blank" style="color:white;text-decoration:underline;">${p.nama}</a>`:p.nama}</td>
         <td>Rp ${p.harga.toLocaleString()}</td>
         <td>${p.qty}</td>
         <td>Rp ${(p.harga*p.qty).toLocaleString()}</td>
@@ -266,10 +437,9 @@ function lihatRingkasanModal(){
   updateTotalModal();
   modal.style.display='flex';
 }
-
 function tutupRingkasanModal(){document.getElementById('ringkasanModal').style.display='none';}
 
-// Hapus Item
+// HAPUS ITEM
 function hapusItem(id){
   pesanan = pesanan.filter(p=>p.id!==id);
   renderProduk(produkTampil);
@@ -277,7 +447,7 @@ function hapusItem(id){
   updateHeader();
 }
 
-// Update Total Modal
+// TOTAL MODAL
 function updateTotalModal(){
   const disc = parseFloat(document.getElementById('discount').value)||0;
   const vou = parseFloat(document.getElementById('voucher').value)||0;
@@ -287,28 +457,45 @@ function updateTotalModal(){
   document.getElementById('totalPesanan').innerText = 'Total: Rp '+total.toLocaleString();
 }
 
-// Kirim WhatsApp ke nomor tetap
+// WA
 function kirimWA(){
-  if(pesanan.length===0){alert("Belum ada pesanan!"); return;}
-  const nama=document.getElementById('namaPembeli').value.trim();
-  const lembaga=document.getElementById('namaLembaga').value.trim();
-  const alamat=document.getElementById('alamat').value.trim();
-  if(!nama || !lembaga){alert("Isi nama pemesan dan lembaga terlebih dahulu."); return;}
-  let pesan=`*Ringkasan Pesanan*\nNama: ${nama}\nLembaga: ${lembaga}\nAlamat: ${alamat}\n\n`;
-  pesanan.forEach(p=>{
-    pesan+=`${p.nama} - Rp ${p.harga.toLocaleString()} x ${p.qty} = Rp ${(p.harga*p.qty).toLocaleString()}\n`;
-  });
-  const disc = parseFloat(document.getElementById('discount').value)||0;
-  const vou = parseFloat(document.getElementById('voucher').value)||0;
-  let total = pesanan.reduce((a,b)=>a+b.harga*b.qty,0);
+  if(pesanan.length === 0){
+    alert("Belum ada pesanan!");
+    return;
+  }
+
+  const nama = document.getElementById('namaPembeli').value.trim();
+  const lembaga = document.getElementById('namaLembaga').value.trim();
+  const alamat = document.getElementById('alamat').value.trim();
+  if(!nama || !lembaga || !alamat){
+    alert("Isi semua data pemesan terlebih dahulu.");
+    return;
+  }
+
+  const disc = parseFloat(document.getElementById('discount').value) || 0;
+  const vou = parseFloat(document.getElementById('voucher').value) || 0;
+
+  let total = pesanan.reduce((a,b)=>a + b.harga*b.qty, 0);
   total = total - (total*disc/100) - vou;
-  total = total < 0 ? 0 : total;
-  pesan += `\nDiscount: ${disc}%\nVoucher: Rp ${vou}\nTotal: Rp ${total.toLocaleString()}`;
-  const waUrl=`https://wa.me/6285736666655?text=${encodeURIComponent(pesan)}`;
-  window.open(waUrl,'_blank');
+  if(total < 0) total = 0;
+
+  let pesan = `*Ringkasan Pesanan Gajahmada Media Group*\n\n`;
+
+  pesanan.forEach((p,i) => {
+    pesan += `${i+1}. ${p.nama}\n   Harga: Rp ${p.harga.toLocaleString()}\n   Qty: ${p.qty}\n   Subtotal: Rp ${(p.harga*p.qty).toLocaleString()}\n\n`;
+  });
+
+  pesan += `Diskon: ${disc}%\nVoucher: Rp ${vou}\nTotal: Rp ${total.toLocaleString()}\n\n`;
+  pesan += `Nama Pemesan: ${nama}\nNama Lembaga: ${lembaga}\nAlamat: ${alamat}`;
+
+  // WA nomor tujuan
+  const waNomor = "6285736666655";
+  const waUrl = `https://wa.me/${waNomor}?text=${encodeURIComponent(pesan)}`;
+  window.open(waUrl, "_blank");
 }
 
-// Cetak
+
+// CETAK
 function cetakPesanan(){
   if(pesanan.length===0){alert("Belum ada pesanan!"); return;}
   let html = '<h2>Ringkasan Pesanan</h2><table border="1" cellspacing="0" cellpadding="6"><tr><th>No</th><th>Nama</th><th>Harga</th><th>Qty</th><th>Subtotal</th></tr>';
@@ -327,7 +514,7 @@ function cetakPesanan(){
   w.print();
 }
 
-// Reset
+// RESET
 function resetPesanan(){
   if(confirm("Yakin ingin menghapus semua pesanan?")){
     pesanan=[];
@@ -337,7 +524,7 @@ function resetPesanan(){
   }
 }
 
-// Pencarian
+// PENCARIAN
 function cariProdukUtama(){
   const keyword=document.getElementById('searchInputUtama').value.toLowerCase().trim();
   if(!keyword){document.getElementById('contentArea').style.display='none';return;}
@@ -353,29 +540,10 @@ function cariProduk(){
   else document.getElementById('contentArea').innerHTML='<p style="color:white;">Produk tidak ditemukan.</p>';
 }
 
-// Filter penerbit
-function setupFilterPenerbit(kat){
-  const select = document.getElementById('filterPenerbit');
-  if(!produkData[kat]){document.getElementById('filterPenerbitContainer').style.display='none'; return;}
-  const penerbitArr = produkData[kat].map(p=>p.penerbit).filter(p=>p).filter((v,i,a)=>a.indexOf(v)===i);
-  if(penerbitArr.length===0){document.getElementById('filterPenerbitContainer').style.display='none'; return;}
-  select.innerHTML='<option value="">Semua</option>';
-  penerbitArr.forEach(p=>{select.innerHTML+=`<option value="${p}">${p}</option>`;});
-  document.getElementById('filterPenerbitContainer').style.display='block';
-}
-
-function filterPenerbit(){
-  const val = document.getElementById('filterPenerbit').value;
-  if(val===''){renderProduk(produkTampil); return;}
-  const hasil = produkTampil.filter(p=>p.penerbit===val);
-  renderProduk(hasil);
-}
-
-// Event discount/voucher
+// UPDATE TOTAL DISCOUNT/VOUCHER
 document.getElementById('discount').addEventListener('input', updateTotalModal);
 document.getElementById('voucher').addEventListener('input', updateTotalModal);
-
 </script>
+
 </body>
 </html>
-
